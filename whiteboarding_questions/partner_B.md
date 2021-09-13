@@ -39,6 +39,53 @@ for models based on the below table (`User`, `Enrollment`, and `Course`)
 #  course_name :string          not null
 #  professor_id :integer        not null
 #  prereq_course_id :integer    not null
+
+class User < ApplicationRecord
+has_many :courses_prof,
+primary_key: :id,
+foreign_key: :professor_id,
+class_name: :Course
+
+has_many :enrollments,
+primary_key: :id,
+foreign_key: :student_id,
+class_name: :Enrollment
+
+end
+
+class Enrollment < ApplicationRecord
+belongs_to: courses,
+primary_key: :id,
+foreign_key: :course_id,
+class_name: :Course
+
+belongs_to: students,
+primary_key: :id,
+foreign_key: :student_id,
+class_name: :Student
+
+
+end
+
+
+class Course < ApplicationRecord
+belongs_to: professors,
+primary_key: :id,
+foreign_key: :professor_id,
+class_name: :User
+
+belongs_to: prereqcourses,
+primary_key: :id,
+foreign_key: :prereq_course_id,
+class_name: :Course
+
+has_many :enrollments,
+primary_key: :id,
+foreign_key: :course_id,
+class_name: :Course
+end
+
+
 ```
 
 ### Solutions
@@ -124,6 +171,23 @@ Given the following table:
 Write the following SQL Query:
 
 1.  In which years was the Physics prize awarded, but no Chemistry prize?
+```sql
+SELECT
+yr
+FROM
+nobels
+WHERE
+subject = 'Physics'
+
+
+
+
+
+
+
+
+
+
 
 #### Solution
 

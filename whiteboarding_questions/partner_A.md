@@ -18,7 +18,6 @@ department.
 #### Solution
 
 ```sql
-
 --  1.
 SELECT
   employees.name
